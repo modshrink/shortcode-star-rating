@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Shortcode Rating
-Plugin URI: https://github.com/modshrink/shortcode-rating
+Plugin Name: Shortcode Star Rating
+Plugin URI: https://github.com/modshrink/shortcode-star-rating
 Description: While you are logged in to WordPress, this plugin will move to the bottom the admin bar that is displayed on the web site.
 Version: 0.0.1
 Author: modshrink
@@ -26,16 +26,16 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-add_action( 'wp_head', 'shortcode_rating_css');
-add_action('plugins_loaded', 'shortcode_rating_init');
+add_action( 'wp_head', 'shortcode_star_rating_css');
+add_action('plugins_loaded', 'shortcode_star_rating_init');
 
 /**
  * Load plugin textdomain.
  */
 
 
-function shortcode_rating_init() {
-  load_plugin_textdomain( 'shortcode-rating', false, dirname( plugin_basename( __FILE__ ) ) ); 
+function shortcode_star_rating_init() {
+  load_plugin_textdomain( 'shortcode-star-rating', false, dirname( plugin_basename( __FILE__ ) ) ); 
 }
 
 
@@ -43,8 +43,8 @@ function shortcode_rating_init() {
  * Inline CSS for styling of star.
  */
 
-function shortcode_rating_css() { ?>
-<style type="text/css" media="all">.shortcode-rating [class^="dashicons dashicons-star-"]:before{color:#FCAE00;}.shortcode-rating .int{color:#333;font-size:75%;}</style>
+function shortcode_star_rating_css() { ?>
+<style type="text/css" media="all">.shortcode-star-rating [class^="dashicons dashicons-star-"]:before{color:#FCAE00;}.shortcode-rating .int{color:#333;font-size:75%;}</style>
 <?php }
 
 
@@ -52,7 +52,7 @@ function shortcode_rating_css() { ?>
  * Replace shortcode to rating star.
  */
 
-function shortcode_rating_func($atts) {
+function shortcode_star_rating_func($atts) {
   extract(shortcode_atts(array(
     'max' => '5',
     'value' => '0'
@@ -77,7 +77,7 @@ function shortcode_rating_func($atts) {
     $filled = $max;
   }
 
-  echo "<div class=\"shortcode-rating\">";
+  echo "<div class=\"shortcode-star-rating\">";
   echo str_repeat( '<div class="dashicons dashicons-star-filled"></div>', $filled );
   echo str_repeat( '<div class="dashicons dashicons-star-half"></div>', $half );
   echo str_repeat( '<div class="dashicons dashicons-star-empty"></div>', $empty );
@@ -85,7 +85,7 @@ function shortcode_rating_func($atts) {
   echo "</div>";
 }
 
-add_shortcode('rating', 'shortcode_rating_func');
+add_shortcode('rating', 'shortcode_star_rating_func');
 
 
 /**
@@ -96,7 +96,7 @@ function appthemes_add_quicktags() {
     if (wp_script_is('quicktags')){
     ?>
       <script type="text/javascript">
-      QTags.addButton( 'shortcode_rating', 'Rating', '[rating value=\"\" max=\"\"]', '', 'r', 'Sortcode Rating' );
+      QTags.addButton( 'shortcode_star_rating', 'Star Rating', '[rating value=\"\" max=\"\"]', '', 'r', 'Sortcode Rating' );
       </script>
       <?php
     }
