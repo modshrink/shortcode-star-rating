@@ -3,7 +3,7 @@
 Plugin Name: Shortcode Star Rating
 Plugin URI: https://github.com/modshrink/shortcode-star-rating
 Description: While you are logged in to WordPress, this plugin will move to the bottom the admin bar that is displayed on the web site.
-Version: 0.0.1
+Version: 0.0.2
 Author: modshrink
 Author URI: http://www.modshrink.com/
 Text Domain: shortcode-rating
@@ -44,7 +44,7 @@ function shortcode_star_rating_init() {
  */
 
 function shortcode_star_rating_css() { ?>
-<style type="text/css" media="all">.shortcode-star-rating [class^="dashicons dashicons-star-"]:before{color:#FCAE00;}.shortcode-rating .int{color:#333;font-size:75%;}</style>
+<style type="text/css" media="all">.shortcode-star-rating [class^="dashicons dashicons-star-"]:before{color:#FCAE00;}.shortcode-rating .int{color:#333;font-size:75%;}.shortcode-star-rating:before,.shortcode-star-rating:after{display: block;height:0;visibility:hidden;content:"\0020";}.shortcode-star-rating:after{clear:both;}</style>
 <?php }
 
 
@@ -54,21 +54,24 @@ function shortcode_star_rating_css() { ?>
 
 function shortcode_star_rating_func($atts) {
   extract(shortcode_atts(array(
+    'rating' => '5',
+    'type' => 'rating',
+    'number' => '0',
     'max' => '5',
-    'value' => '0'
+    'numeric' => 'no'
   ), $atts));
 
   if( $max == NULL) {
     $max = 5;
   }
   
-  $no_rate = $max - $value;
+  $no_rate = $max - $rating;
   if( is_float($no_rate) ) {
-    $filled = floor($value);
+    $filled = floor($rating);
     $half = 1;
     $empty = floor($no_rate);
   } else {
-    $filled = $value;
+    $filled = $rating;
     $half = 0;
     $empty = $no_rate;
   }
@@ -77,15 +80,23 @@ function shortcode_star_rating_func($atts) {
     $filled = $max;
   }
 
-  echo "<div class=\"shortcode-star-rating\">";
-  echo str_repeat( '<div class="dashicons dashicons-star-filled"></div>', $filled );
-  echo str_repeat( '<div class="dashicons dashicons-star-half"></div>', $half );
-  echo str_repeat( '<div class="dashicons dashicons-star-empty"></div>', $empty );
-  echo "<span class=\"int\">(" . $value . "/" . $max . ")</span>";
-  echo "</div>";
+  $ssr_html = "<div class=\"shortcode-star-rating\">";
+  $ssr_html .= str_repeat( '<div class="dashicons dashicons-star-filled"></div>', $filled );
+  $ssr_html .= str_repeat( '<div class="dashicons dashicons-star-half"></div>', $half );
+  $ssr_html .= str_repeat( '<div class="dashicons dashicons-star-empty"></div>', $empty );
+
+  if($numeric == "yes") {
+  $ssr_html .= "<span class=\"int\">(" . $rating . "/" . $max . ")</span>";
+  }
+
+  $ssr_html .= "</div>";
+
+  return $ssr_html;
 }
 
-add_shortcode('rating', 'shortcode_star_rating_func');
+
+
+add_shortcode('star', 'shortcode_star_rating_func');
 
 
 /**
@@ -96,7 +107,7 @@ function appthemes_add_quicktags() {
     if (wp_script_is('quicktags')){
     ?>
       <script type="text/javascript">
-      QTags.addButton( 'shortcode_star_rating', 'Star Rating', '[rating value=\"\" max=\"\"]', '', 'r', 'Sortcode Rating' );
+      QTags.addButton( 'shortcode_star_rating', 'Star Rating', '[star rating=\"\"]', '', 'r', 'Sortcode Rating' );
       </script>
       <?php
     }
