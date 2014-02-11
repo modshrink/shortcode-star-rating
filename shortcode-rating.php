@@ -77,29 +77,12 @@ function shortcode_rating_func($atts) {
     $filled = $max;
   }
 
-  $rate .= "<div class=\"shortcode-rating\">";
-
-  $i = 0;
-  while ( $i < $filled) {
-    $rate .= "<div class=\"dashicons dashicons-star-filled\"></div>";
-    $i++;
-  }
-
-  if ( $half == 1 ) {
-    $rate .= "<div class=\"dashicons dashicons-star-half\"></div>";
-  }
-
-  $i = 0;
-  while ( $i < $empty) {
-    $rate .= "<div class=\"dashicons dashicons-star-empty\"></div>";
-    $i++;
-  }
-
-  $rate .= "<span class=\"int\">(" . $value . "/" . $max . ")</span>";
-
-  $rate .= "</div>";
-
-  return $rate;
+  echo "<div class=\"shortcode-rating\">";
+  echo str_repeat( '<div class="dashicons dashicons-star-filled"></div>', $filled );
+  echo str_repeat( '<div class="dashicons dashicons-star-half"></div>', $half );
+  echo str_repeat( '<div class="dashicons dashicons-star-empty"></div>', $empty );
+  echo "<span class=\"int\">(" . $value . "/" . $max . ")</span>";
+  echo "</div>";
 }
 
 add_shortcode('rating', 'shortcode_rating_func');
