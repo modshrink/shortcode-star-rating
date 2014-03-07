@@ -1,0 +1,76 @@
+# Copyright (C) 2013 WordPress
+# This file is distributed under the same license as the WordPress package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Shortcode Star Rating\n"
+"Report-Msgid-Bugs-To: http://wppolyglots.wordpress.com\n"
+"POT-Creation-Date: 2014-03-06 21:13+0900\n"
+"PO-Revision-Date: 2014-03-07 01:03+0900\n"
+"Last-Translator: modshrink <hello@modshrink.com>\n"
+"Language-Team: modshrink <hello@modshrink.com>\n"
+"Language: Japanese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: Description:
+msgid ""
+"You can star rating in the article by using the shortcode. It uses the built-"
+"in icon fonts, WordPress 3.8 or higher is required."
+msgstr ""
+"ショートコードを使って記事の中で星評価を付けられます。WordPress 3.8以上が必要"
+"です."
+
+#: ../shortcode-star-rating.php:77
+#, php-format
+msgid "%s is not working."
+msgstr "%s は動作していません。"
+
+#: ../shortcode-star-rating.php:79
+msgid "This plugin require the <strong>WordPress 3.8 or higher</strong>."
+msgstr "このプラグインは<strong>WordPress 3.8以上</strong>が必要です。"
+
+#: ../shortcode-star-rating.php:80
+#, php-format
+msgid " Your WordPress version is %s."
+msgstr "このWordPressのバージョンは %s です。"
+
+#: ../shortcode-star-rating.php:81
+msgid " Deactivate Now"
+msgstr "今すぐ停止する"
+
+#: ../shortcode-star-rating.php:104
+msgid "Plugin <strong>deactivated</strong>."
+msgstr ""
+
+#: ../shortcode-star-rating.php:283
+msgid "Invalid HEX color code."
+msgstr "無効な16進数カラーコードです。"
+
+#: ../shortcode-star-rating.php:309
+#, php-format
+msgid "Please enter in the Hex color. (Default: %s)"
+msgstr "16進数のカラーコードを入力してください。(初期値: %s)"
+
+#: ../shortcode-star-rating.php:314
+msgid "Adjust Star Size"
+msgstr "星のサイズ調整"
+
+#: ../shortcode-star-rating.php:316
+msgid "Fit in a perent box"
+msgstr "親ボックスに合わせる"
+
+#: ../shortcode-star-rating.php:317
+msgid "If there is no check, 20px font size is set."
+msgstr "チェックがなければ, 20pxのフォントサイズが適用されます。"
+
+#: ../shortcode-star-rating.php:327
+msgid "Save Changes"
+msgstr ""
+
+msgid "Star Color"
+msgstr "星の色"

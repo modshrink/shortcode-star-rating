@@ -29,7 +29,11 @@
 
 ##Changelog
 
-###
+###0.1
+* Added setting page. (Star color and size)
+* Displays an alert when you are using less than WordPress 3.8.
+* Support the percentage value.
+* Added 'Star Rating' quick tag.
 
 ###0.0.2
 * Changed codes based on wp_star_rating function.
