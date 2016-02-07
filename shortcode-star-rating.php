@@ -44,26 +44,26 @@ class ShortcodeStarRating {
 
 		// Plugin Activation
 		if ( function_exists( 'register_activation_hook' ) ) {
-			register_activation_hook( __FILE__, array(&$this, 'activationHook') );
+			register_activation_hook( __FILE__, array( &$this, 'activationHook' ) );
 		}
 
 		// Plugin Uninstall
 		if ( function_exists( 'register_uninstall_hook' ) ) {
-			register_uninstall_hook( __FILE__, 'ShortcodeStarRating::uninstallHook');
+			register_uninstall_hook( __FILE__, 'ShortcodeStarRating::uninstallHook' );
 		}
 
 		// Version Check
 		global $wp_version;
 		if( version_compare( $wp_version, '3.8', '<' ) ) {
-			add_action( 'admin_notices', array(&$this, 'ssr_notice') );
+			add_action( 'admin_notices', array( &$this, 'ssr_notice' ) );
 		}
 
-		add_action( 'admin_init', array(&$this, 'pluginDeactivate') );
-		add_action( 'wp_enqueue_scripts', array(&$this, 'dashicons_css') );
-		add_action( 'wp_head', array(&$this, 'shortcode_star_rating_css') );
-		add_action( 'admin_print_footer_scripts', array(&$this, 'appthemes_add_quicktags') );
-		add_action( 'admin_menu', array(&$this, 'ssr_add_pages') );
-		add_shortcode( 'star', array(&$this, 'shortcode_star_rating_func') );
+		add_action( 'admin_init', array( &$this, 'pluginDeactivate' ) );
+		add_action( 'wp_enqueue_scripts', array( &$this, 'dashicons_css' ) );
+		add_action( 'wp_head', array( &$this, 'shortcode_star_rating_css' ) );
+		add_action( 'admin_print_footer_scripts', array( &$this, 'appthemes_add_quicktags' ) );
+		add_action( 'admin_menu', array( &$this, 'ssr_add_pages' ) );
+		add_shortcode( 'star', array( &$this, 'shortcode_star_rating_func' ) );
 	}
 
 	/**
@@ -85,10 +85,10 @@ class ShortcodeStarRating {
 	* Plugin Deactivated from Update Message Box.
 	*/
 	public function pluginDeactivate() {
-		if( is_plugin_active('shortcode-star-rating/shortcode-star-rating.php') && isset( $_GET['deactivatePluginKey'] ) ) {
-			deactivate_plugins('shortcode-star-rating/shortcode-star-rating.php');
-			remove_action( 'admin_notices', array(&$this, 'ssr_notice') );
-			add_action( 'admin_notices', array(&$this, 'pluginDeactivateMessage') );
+		if( is_plugin_active( 'shortcode-star-rating/shortcode-star-rating.php' ) && isset( $_GET['deactivatePluginKey'] ) ) {
+			deactivate_plugins( 'shortcode-star-rating/shortcode-star-rating.php' );
+			remove_action( 'admin_notices', array( &$this, 'ssr_notice' ) );
+			add_action( 'admin_notices', array( &$this, 'pluginDeactivateMessage' ) );
 		}
 	}
 
@@ -109,7 +109,7 @@ class ShortcodeStarRating {
 	}
 	// Default Star Color
 	if ( !get_option( 'ssr_star_color' ) ) {
-	update_option( 'ssr_star_color', '#FCAE00');
+	update_option( 'ssr_star_color', '#FCAE00' );
 	}
 	}
 
@@ -126,7 +126,7 @@ class ShortcodeStarRating {
 	* Load plugin textdomain.
 	*/
 	public function dashicons_css() {
-		wp_enqueue_style( 'dashicons', site_url('/')."/wp-includes/css/dashicons.min.css");
+		wp_enqueue_style( 'dashicons', site_url( '/' )."/wp-includes/css/dashicons.min.css" );
 	}
 
 	/**
@@ -147,16 +147,16 @@ class ShortcodeStarRating {
 	/**
 	* Replace shortcode to rating star.
 	*/
-	public function shortcode_star_rating_func($atts) {
-		extract(shortcode_atts(array(
+	public function shortcode_star_rating_func( $atts ) {
+		extract( shortcode_atts( array(
 			'rating' => '0',
 			'type' => 'rating',
 			'number' => '0',
 			'max' => '5',
-			'numeric' => 'no'
-		), $atts));
+			'numeric' => 'no',
+		), $atts ) );
 
-		if( $max == NULL) {
+		if( $max == NULL ) {
 			$max = 5;
 		}
 
@@ -166,8 +166,8 @@ class ShortcodeStarRating {
 			$rating = preg_replace( '/\.?0+$/', '', (int)$rating );
 			$empty_rating = $max - $rating;
 
-			if( is_float($empty_rating) ) {
-				$filled = floor($rating);
+			if( is_float( $empty_rating ) ) {
+				$filled = floor( $rating );
 				$half = 1;
 				$empty = floor($empty_rating);
 			} else {
@@ -183,13 +183,13 @@ class ShortcodeStarRating {
 
 		/* Display tyle: percent */
 		if( $type == "percent" ) {
-			$fill_percentage = $max * ($rating * 0.01);
+			$fill_percentage = $max * ( $rating * 0.01 );
 			$empty_percentage = $max - $fill_percentage;
 
-			if( preg_match('/^\d+\.\d+$/', $fill_percentage) ) {
-				$filled = floor($fill_percentage);
+			if( preg_match( '/^\d+\.\d+$/', $fill_percentage ) ) {
+				$filled = floor( $fill_percentage );
 				$half = 1;
-				$empty = floor($empty_percentage);
+				$empty = floor( $empty_percentage );
 			} else {
 				$filled = $fill_percentage;
 				$half = 0;
@@ -219,7 +219,7 @@ class ShortcodeStarRating {
 	* Add quicktag for shortcode.
 	*/
 	public function appthemes_add_quicktags() {
-		if (wp_script_is('quicktags')){
+		if ( wp_script_is( 'quicktags' ) ){
 	?>
 	<script type="text/javascript">
 	QTags.addButton( 'shortcode_star_rating', 'Star Rating', '[star rating=\"\"]', '', 'r', 'Sortcode Rating' );
@@ -232,7 +232,7 @@ class ShortcodeStarRating {
 	* Add admin menu.
 	*/
 	public function ssr_add_pages() {
-		add_options_page('Shortcode Star Rating', 'Shortcode Star Rating', 'level_8', __FILE__, array(&$this, 'ssr_plugin_options') );
+		add_options_page( 'Shortcode Star Rating', 'Shortcode Star Rating', 'level_8', __FILE__, array( &$this, 'ssr_plugin_options' ) );
 	}
 
 	/**
@@ -260,7 +260,7 @@ class ShortcodeStarRating {
 			add_action( 'admin_notices', array(&$this, 'colorErrorMes' ) );
 		}
 
-		if(get_option( 'ssr_star_size' ) == 'yes' ) {
+		if( get_option( 'ssr_star_size' ) == 'yes' ) {
 			$this->checked = ' checked="checked"';
 		}
 
@@ -269,7 +269,7 @@ class ShortcodeStarRating {
 
 	<h2>Shortcode Star Rating</h2>
 
-	<form method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
+	<form method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI'] ); ?>">
 	<?php wp_nonce_field('update-options'); ?>
 
 	<table class="form-table">
@@ -277,7 +277,7 @@ class ShortcodeStarRating {
 	<tr valign="top">
 	<th scope="row"><?php _e( 'Star Color', 'shortcode-star-rating' ); ?></th>
 	<td>
-	<input type="text" name="ssr_star_color" value="<?php echo get_option('ssr_star_color'); ?>" />
+	<input type="text" name="ssr_star_color" value="<?php echo get_option( 'ssr_star_color' ); ?>" />
 	<p class="description"><?php printf( __( 'Please enter in the Hex color. (Default: %s)', 'shortcode-star-rating' ), '#FCAE00' ); ?></p>
 	</td>
 	</tr>
