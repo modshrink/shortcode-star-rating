@@ -196,9 +196,8 @@ class ShortcodeStarRating {
 				$empty = $empty_percentage;
 			}
 		}
-
 		$ssr_html = "<span class=\"shortcode-star-rating\">";
-		$ssr_html .= str_repeat( '<span class="dashicons dashicons-star-filled"></span>', $filled );
+		$ssr_html .= str_repeat( '<span class="dashicons dashicons-star-filled"></span>', (int)$filled );
 		$ssr_html .= str_repeat( '<span class="dashicons dashicons-star-half"></span>', $half );
 		$ssr_html .= str_repeat( '<span class="dashicons dashicons-star-empty"></span>', $empty );
 
