@@ -196,6 +196,11 @@ class ShortcodeStarRating {
 				$empty = $empty_percentage;
 			}
 		}
+		// ratingがmaxより高くmaxがマイナス値を取る場合はsrt_repeatでエラーが出るため、強制的に0とする。
+		if( !ctype_digit( strval( $empty ) ) ) {
+			$empty = 0;
+		}
+
 		$ssr_html = "<span class=\"shortcode-star-rating\">";
 		$ssr_html .= str_repeat( '<span class="dashicons dashicons-star-filled"></span>', (int)$filled );
 		$ssr_html .= str_repeat( '<span class="dashicons dashicons-star-half"></span>', $half );
