@@ -3,14 +3,14 @@
 Plugin Name: Shortcode Star Rating
 Plugin URI: https://github.com/modshrink/shortcode-star-rating
 Description: You can star rating in the article by using the shortcode. It uses the built-in icon fonts, WordPress 3.8 or higher is required.
-Version: 0.1
+Version: 0.2
 Author: modshrink
 Author URI: http://www.modshrink.com/
 Text Domain: shortcode-star-rating
 Domain Path: /languages
 License: GPL2
 
-Copyright 2014  modshrink  (email : hello@modshrink.com)
+Copyright 2016  modshrink  (email : hello@modshrink.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as

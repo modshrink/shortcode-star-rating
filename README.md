@@ -12,7 +12,7 @@
 2. Search for 'Shortcode Star Rating'
 3. Click on the 'Install Now'
 4. Activate Shortcode Star Rating from your Plugins page.
- 
+
 ###Manual upload
 1. Upload `/shortcode-star-rating/` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
@@ -28,6 +28,9 @@
 2. プラグインメニューからShortcode Star Ratingを有効化します
 
 ##Changelog
+
+###0.2
+* Fixed errors when you set the 'rating' attr greater than the 'max' attr.
 
 ###0.1
 * Added setting page. (Star color and size)

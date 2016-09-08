@@ -1,10 +1,10 @@
 === Shortcode Star Rating ===
 Contributors: modshrink
-Donate link: 
+Donate link:
 Tags: rating, shortcode, dashicons
 Requires at least: 3.8
-Tested up to: 3.8.1
-Stable tag: 0.1
+Tested up to: 4.6
+Stable tag: 0.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,13 +25,13 @@ Rating in the article with Dashicons.
 = Options =
 * rating ... Number of rating stars. Default value is '0'.
 * max ...  Limit of star to be displayed. Default value is '5'.
-* type ... Choose the 'percent' or 'rating'. Default value is 'rating' 
+* type ... Choose the 'percent' or 'rating'. Default value is 'rating'
 * numeric ... Display the numbers after the rating star. Default value is 'no'.
 
 = Settings =
 In admin menu, 'Settings' -> 'Shortcode Star Rating'
 
-* Star Color ... Enter the HEX color code the color of the star. Default '#FCAE00'. 
+* Star Color ... Enter the HEX color code the color of the star. Default '#FCAE00'.
 * Adjust Star Size ... If you check in this box, stars fit in a perent box size. It is fixed at 20px If you do not check.
 
 
@@ -51,6 +51,9 @@ In admin menu, 'Settings' -> 'Shortcode Star Rating'
 1. Shorcode options example
 
 == Changelog ==
+
+= 0.2 =
+* Fixed errors when you set the 'rating' attr greater than the 'max' attr.
 
 = 0.1 =
 * Released
