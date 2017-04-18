@@ -3,7 +3,7 @@
 Plugin Name: Shortcode Star Rating
 Plugin URI: https://github.com/modshrink/shortcode-star-rating
 Description: You can star rating in the article by using the shortcode. It uses the built-in icon fonts, WordPress 3.8 or higher is required.
-Version: 0.2
+Version: 0.3
 Author: modshrink
 Author URI: http://www.modshrink.com/
 Text Domain: shortcode-star-rating
@@ -148,12 +148,14 @@ class ShortcodeStarRating {
 	* Replace shortcode to rating star.
 	*/
 	public function shortcode_star_rating_func( $atts ) {
+		global $post;
 		extract( shortcode_atts( array(
 			'rating' => '0',
 			'type' => 'rating',
 			'number' => '0',
 			'max' => '5',
 			'numeric' => 'no',
+			'schema' => 'false',
 		), $atts ) );
 
 		if( $max == NULL ) {
@@ -203,7 +205,7 @@ class ShortcodeStarRating {
 			$empty = 0;
 		}
 
-		$ssr_html = "<span class=\"shortcode-star-rating\">";
+		$ssr_html .= "<span class=\"shortcode-star-rating\">";
 		$ssr_html .= str_repeat( '<span class="dashicons dashicons-star-filled"></span>', (int)$filled );
 		$ssr_html .= str_repeat( '<span class="dashicons dashicons-star-half"></span>', $half );
 		$ssr_html .= str_repeat( '<span class="dashicons dashicons-star-empty"></span>', $empty );
@@ -218,7 +220,48 @@ class ShortcodeStarRating {
 
 		$ssr_html .= "</span>";
 
+		if( $schema == 'true' && is_single() ) {
+			$item = $post->post_title;
+			$author = get_the_author( $post->post_author );
+			$date = $post->post_date;
+			$json_ld = $this->get_json_ld( $item, $author, $rating, $max, $date );
+			add_action( 'wp_footer', function() { echo $json_ld; } );
+		}
+
 		return $ssr_html;
+	}
+
+	/**
+	* リッチスニペット用JSON-LDの組み立て
+	* @see Google仕様解説 https://developers.google.com/search/docs/data-types/reviews?visit_id=1-636245363966023220-2672943764&hl=ja&rd=1#review-snippets
+	* @see テストツール https://search.google.com/structured-data/testing-tool
+	*/
+	public function get_json_ld( $item, $author, $rating, $max, $date ) {
+	$output = <<<_EOM_
+<!-- JSON-LD for Review snippets by Shortcode Star Rating -->
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "Thing",
+    "name": "{$item}"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "{$author}"
+  },
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": "{$rating}",
+    "bestRating": "{$max}"
+  },
+  "datePublished": "$date"
+}
+</script>
+_EOM_;
+		//日付フォーマット ISO8601 2017-03-08T11:33:55+09:00
+		echo $output . "\n";
 	}
 
 	/**
