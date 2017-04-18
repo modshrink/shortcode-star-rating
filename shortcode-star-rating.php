@@ -220,7 +220,8 @@ class ShortcodeStarRating {
 
 		$ssr_html .= "</span>";
 
-		if( $schema == 'true' && is_single() ) {
+		// 「リッチスニペット表示オプション有効」「記事ページ」「ショートコードの重複無し」の場合だけJSON LDを表示
+		if( $schema == 'true' && is_single() && $this->duplication_check( $post->post_content ) ) {
 			$item = $post->post_title;
 			$author = get_the_author( $post->post_author );
 			$date = $post->post_date;
@@ -237,6 +238,7 @@ class ShortcodeStarRating {
 	* @see テストツール https://search.google.com/structured-data/testing-tool
 	*/
 	public function get_json_ld( $item, $author, $rating, $max, $date ) {
+	global $post;
 	$output = <<<_EOM_
 <!-- JSON-LD for Review snippets by Shortcode Star Rating -->
 <script type="application/ld+json">
@@ -262,6 +264,18 @@ class ShortcodeStarRating {
 _EOM_;
 		//日付フォーマット ISO8601 2017-03-08T11:33:55+09:00
 		echo $output . "\n";
+	}
+
+	/**
+	* ショートコードが複数使われているかのチェック
+	*/
+	public function duplication_check( $string ) {
+		$count = substr_count( $string, '[star');
+		if ( $count === 1 ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
