@@ -327,10 +327,13 @@ _EOM_;
 			$this->checked = ' checked="checked"';
 		}
 
+		// バージョン取得
+		$data    = get_file_data( __FILE__, array( 'version' => 'Version' ) );
+		$version = $data['version'];
 	?>
 	<div class="wrap">
 
-	<h2>Shortcode Star Rating</h2>
+	<h2>Shortcode Star Rating <?php echo 'Version ' . $version; ?></h2>
 
 	<form method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI'] ); ?>">
 	<?php wp_nonce_field('update-options'); ?>
