@@ -164,6 +164,7 @@ class ShortcodeStarRating {
 
 		/* Display tyle: rating */
 		if( $type == "rating" ) {
+			$rating = 0;
 			// 小数点以下の最後が0の場合は削除
 			if( is_float( $rating ) ) {
 				$rating = preg_replace( '/\.?0+$/', '', (int)$rating );
